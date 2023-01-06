@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>Code Problems</title>
+</head>
+<body>
+<style>
+    body {
+        background-color: #323233;
+        color: #b0b8a5;
+        font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+    }
+
+    .CodeIco {
+        margin-top: 5px;
+    }
+    .collection {
+        border-radius: 7px;
+    }
+    .Icon {
+        font-size: 40px;
+    }
+    .Subs {
+        background-color: #1f1f1f;
+        border: solid 2px grey;
+        border-radius: 7px;
+        height: 70px;
+        width: 100%;
+    }
+    .Subs > span {
+        margin-left: 25px;
+        margin-top: 25px;
+        font-size: 30px;
+    }
+    .PrNum {
+        font-size: 50px;
+        right: 50px;
+    }
+</style>
+<script type="text/javascript">
+    let Subs = 0
+    let Incmp = 0
+</script>
+    {% include "Nav.html" %}
+    <div class="container"><br>
+        <h3>{{ CodeProblem.Title }}</h3>
+        {{ CodeProblem.Problem }}
+        <br><br>
+        {% if User.is_authenticated %}
+            <form class="CodeForm" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <p hidden>{{ CodeForm.Problem }}{{ CodeForm.Author }}</p>
+                <div class="file-field input-field">
+                    <div class="btn">
+                        {#                        <span class="CodeIco material-icons">code</span>#}
+                        <div>Code</div>
+                        {{ CodeForm.ScrSht }}
+                    </div>
+                    <div class="form-control file-path-wrapper">
+                        <label>
+                            <input class="file-path validate" placeholder="Screen Shot of Code">
+                        </label>
+                    </div>
+                </div>
+                <button class="btn waves-effect waves-light blue darken-3" type="submit" name="action"
+                        style="border-radius: 25px">Submit
+                    <i class="material-icons right">send</i>
+                </button>
+            </form>
+        {% else %}
+            <p>Create an Account</p>
+        {% endif %}
+        <br>
+        <p id="Testersss"></p>
+        <div class="divider"></div><br>
+        <div class="Subs">
+            <span>Percentage of Submissions: </span>
+            <span class="PrNum" id="PrecenNum">69</span>
+        </div>
+        {% if User.is_staff %}
+            <ul class="collection">
+                {% for User_Dets, Status in User_List.items %}
+                    <li class="collection-item avatar grey darken-4">
+                        <img src="{{ User_Dets.Profile_pic.url }}" alt="{{ User_Dets.Name }}" class="circle">
+                        <span class="title">{{ User_Dets.Name }}</span>
+                        <p>{{ User_Dets.RollNo }}</p>
+                        {% if Status == 1 %}
+                            <a class="secondary-content"><i class="Icon material-icons" style="color: green">check_circle
+                            </i></a>
+                            <script type="text/javascript">Subs += 1</script>
+                        {% else %}
+                            <a class="secondary-content"><i class="Icon material-icons" style="color: #9b0707">error
+                            </i></a>
+                            <script type="text/javascript">Incmp += 1</script>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+<script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+        crossorigin="anonymous">
+</script>
+<script type="text/javascript">
+    document.getElementById("PrecenNum").innerText = `${(Subs/(Incmp + Subs)) * 100}%`
+    
+    function GetCode() {
+        
+    }
+</script>
+</body>
+</html>

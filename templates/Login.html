@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>Login</title>
+</head>
+<body>
+    <style>
+        body {
+            background-color: #323233;
+            color: #b0b8a5;
+            font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+        }
+        .form-control {
+            color: #b0b8a5;
+        }
+    </style>
+    <div class="container">
+        <h3>Login:</h3><br>
+        <form class="Login Form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ forms.username }}<br>
+            {{ forms.password1 }}<br>
+            <button class="button" type="submit">Login</button>
+        </form>
+    </div>
+</body>
+</html>

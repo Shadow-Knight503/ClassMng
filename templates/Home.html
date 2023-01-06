@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>Home</title>
+</head>
+<body>
+    <style>
+        body {
+            background-color: #323233;
+            color: #b0b8a5;
+            font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+        }
+        .collection {
+            border-radius: 7px;
+        }
+    </style>
+    {% include "Nav.html" %}
+    <div class="container">
+        <h4>Code Problems</h4><br>
+        <ul class="CodeProbs collection">
+            {% for CodeProblem in CodeProblems %}
+                <li class="collection-item grey darken-4">
+                    <div>{{ CodeProblem.Title }}<a href="./CodeProbs/{{ CodeProblem.id }}" class="secondary-content">
+                        <i class="material-icons">send</i>
+                    </a></div>
+                </li>
+            {% empty %}
+                <li class="collection-item teal darken-4">
+                    <div>You're all caught up<a href="" class="secondary-content">
+                        <i class="material-icons">verified_user</i>
+                    </a></div>
+                </li>
+            {% endfor %}
+        </ul>
+        <br>
+        <ul class="CodeProbs collection">
+            {% if User.is_authenticated %}
+                {% for Problem in AllProblems %}
+                    <li class="collection-item grey darken-4">
+                        <div>{{ Problem.Title }}<a href="./CodeProbs/{{ Problem.id }}" class="secondary-content">
+                            <i class="material-icons">launch</i>
+                        </a></div>
+                    </li>
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div>
+</body>
+</html>
